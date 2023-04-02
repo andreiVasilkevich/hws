@@ -3,6 +3,7 @@ import SuperButton from '../hw04/common/c2-SuperButton/SuperButton'
 import {restoreState} from '../hw06/localStorage/localStorage'
 import s from './Clock.module.css'
 
+
 function Clock() {
     const [timerId, setTimerId] = useState<number | undefined>(undefined)
     // for autotests // не менять // можно подсунуть в локалСторэдж нужную дату, чтоб увидеть как она отображается
@@ -10,11 +11,12 @@ function Clock() {
     const [show, setShow] = useState<boolean>(false)
 
     const start = () => {
-        let now = () => new Date()
+        let now =   new Date()
         setDate(now)
-       // console.log()
-         let timerId = setTimeout(now,0);
+         let timerId = setTimeout(setTimerId,0);
         console.log(timerId)
+        setTimerId(timerId)
+         setShow(true)
        // setDate(timerId)
        // const value = setDate(new Date ())
 
@@ -28,30 +30,43 @@ function Clock() {
 
     const stop = () => {
         // пишут студенты // поставить часы на паузу, обнулить ид таймера (timerId <- undefined)
-       let timerId = setTimeout(setDate);
-        clearTimeout(timerId,)
+       let timerId = setTimeout(setTimerId);
+        clearTimeout(timerId)
         console.log(timerId)
+        setShow(false)
     }
 
     const onMouseEnter = () => { // пишут студенты // показать дату если наведена мышка
-        return date.getDate()
+      // if(show === true) {
+       // date.toLocaleDateString("ru-RU")
+       // setShow(true)
+       //}
+    //   else setShow(false)
+         //let dais = `${stringDate}${stringDay}`
+        // const date =  stringDate, stringDay
+        setShow(true)
     }
     const onMouseLeave = () => { // пишут студенты // спрятать дату если мышка не наведена
-
+      //  if(show === false) {
+        //    setShow(false)
+        //   }
+         //  else setShow(true)
+         setShow(false)
     }
 
     const stringTime = date.toLocaleTimeString("ru-RU")  || <br/> // часы24:минуты:секунды (01:02:03)/(23:02:03)/(24:00:00)/(00:00:01) // пишут студенты
     const stringDate =  date.toLocaleDateString("ru-RU")  || <br/> // день.месяц.год (01.02.2022) // пишут студенты, варианты 01.02.0123/01.02.-123/01.02.12345 не рассматриваем
-
+    console.log(stringDate)
     // день недели на английском, месяц на английском (https://learn.javascript.ru/intl#intl-datetimeformat)
-    const stringDay = date.toLocaleTimeString('en-EN') || <br/> // пишут студенты
-    const stringMonth = date.toLocaleDateString('en-EN') || <br/> // пишут студенты
-
+    const stringDay = new Intl.DateTimeFormat("en",{weekday:"long"}).format(date) || <br/> // пишут студенты
+    console.log(stringDay)
+    const stringMonth = new Intl.DateTimeFormat("en",{month:"long"}).format(date) || <br/> // пишут студенты
+    console.log(stringMonth)
     return (
         <div className={s.clock}>
             <div
                 id={'hw9-watch'}
-                className={s.watch}
+                className={s.watch} 
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
             >
@@ -60,6 +75,7 @@ function Clock() {
                     <strong>{stringTime}</strong>
                 </span>
             </div>
+          
 
             <div id={'hw9-more'}>
                 <div className={s.more}>
@@ -79,14 +95,14 @@ function Clock() {
             <div className={s.buttonsContainer}>
                 <SuperButton
                     id={'hw9-button-start'}
-                    disabled={false} // пишут студенты // задизэйблить если таймер запущен
+                    disabled={show} // пишут студенты // задизэйблить если таймер запущен
                     onClick={start}
                 >
                     start
                 </SuperButton>
                 <SuperButton
                     id={'hw9-button-stop'}
-                    disabled={false} // пишут студенты // задизэйблить если таймер не запущен
+                    disabled={!show} // пишут студенты // задизэйблить если таймер не запущен
                     onClick={stop}
                 >
                     stop
