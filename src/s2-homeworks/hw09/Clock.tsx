@@ -13,10 +13,10 @@ function Clock() {
     const start = () => {
         let now =   new Date()
         setDate(now)
-         let timerId = setTimeout(setTimerId,0);
+         let timerId = setInterval(setTimerId,0);
         console.log(timerId)
         setTimerId(timerId)
-         setShow(true)
+         //setShow(true)
        // setDate(timerId)
        // const value = setDate(new Date ())
 
@@ -30,10 +30,9 @@ function Clock() {
 
     const stop = () => {
         // пишут студенты // поставить часы на паузу, обнулить ид таймера (timerId <- undefined)
-       let timerId = setTimeout(setTimerId);
+       let timerId = setInterval(setTimerId);
         clearTimeout(timerId)
-        console.log(timerId)
-        setShow(false)
+        //setShow(false)
     }
 
     const onMouseEnter = () => { // пишут студенты // показать дату если наведена мышка
@@ -45,6 +44,7 @@ function Clock() {
          //let dais = `${stringDate}${stringDay}`
         // const date =  stringDate, stringDay
         setShow(true)
+        // let set = '1'
     }
     const onMouseLeave = () => { // пишут студенты // спрятать дату если мышка не наведена
       //  if(show === false) {
@@ -95,14 +95,14 @@ function Clock() {
             <div className={s.buttonsContainer}>
                 <SuperButton
                     id={'hw9-button-start'}
-                    disabled={show} // пишут студенты // задизэйблить если таймер запущен
+                    disabled={false} // пишут студенты // задизэйблить если таймер запущен
                     onClick={start}
                 >
                     start
                 </SuperButton>
                 <SuperButton
                     id={'hw9-button-stop'}
-                    disabled={!show} // пишут студенты // задизэйблить если таймер не запущен
+                    disabled={false} // пишут студенты // задизэйблить если таймер не запущен
                     onClick={stop}
                 >
                     stop
